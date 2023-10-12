@@ -69,9 +69,9 @@
         <div class="col-md-6">
           <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
             <div class="d-flex justify-content-between align-items-center">
-                <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">0</span></p>
+                <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">{{searched_quiz.total}}</span></p>
               </div>
-              <quiz-list :darkModeStatus="darkModeStatus" :quizzes="searched_quiz"></quiz-list>
+              <quiz-list @page="changePage"  :currentPage="currentPage" :darkModeStatus="darkModeStatus" :quizzes="searched_quiz"></quiz-list>
         </div>
         </div>
       </div>
@@ -104,6 +104,7 @@ export default defineComponent({
       latest_quizzes : {},
       popular_quizzes : {},
       searched_quiz : {},
+      currentPage : 1,
     }
   },
   methods: {
@@ -146,7 +147,7 @@ export default defineComponent({
     // get searched quizzes
     searchQuiz(){
       this.setLoadingStatus(true);
-        axios.post('http://127.0.0.1:8000/api/search',{
+        axios.post(`http://127.0.0.1:8000/api/search?page=${this.currentPage}`,{
             'searchKey' : this.search_input
         }).then((response) => {
             this.searched_quiz = response.data.searched_quiz;
@@ -158,6 +159,11 @@ export default defineComponent({
       this.$router.push({
         name : 'allQuiz',
       })
+    },
+
+    changePage(page = 1){
+      this.currentPage = page;
+      this.searchQuiz();
     }
   },
   mounted () {

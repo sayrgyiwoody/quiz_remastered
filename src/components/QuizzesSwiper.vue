@@ -138,6 +138,7 @@
   }
 
   .swiper-quiz:hover .fa-play{
-    transform: scale(1.25);
+    transform: rotate(125deg);
   }
+
   </style>
