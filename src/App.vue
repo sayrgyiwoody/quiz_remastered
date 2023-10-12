@@ -13,10 +13,10 @@
     </div>
     
    
-      
-    <router-view @loadingStatus="handleLoading" :darkModeStatus="darkModeStatus"></router-view>
+    
+    <router-view  :darkModeStatus="darkModeStatus"></router-view>
   </div>
-  <div v-if="loadingStatus" class="loader-container" :class="darkModeStatus?'loader-container-dark':''">
+  <div v-if="$store.state.loadingStatus" class="loader-container" :class="darkModeStatus?'loader-container-dark':''">
     <div class="w-100 d-flex justify-content-center align-items-center " style="height:100vh">
       <div class="loader" >
         <span class="loader-text">loading</span>
@@ -53,9 +53,13 @@ nav {
 </style>
 
 <script>
-import HomeView from '@/views/HomeView' 
+import HomeView from '@/views/HomeView'
+import AllQuiz from '@/views/AllQuiz' 
 
 export default {
+  computed: {
+    
+  },
   components: {
     
   },
@@ -79,10 +83,6 @@ export default {
     toggleDarkMode() {
             this.darkModeStatus = !(this.darkModeStatus);
             localStorage.setItem('darkMode', JSON.stringify(this.darkModeStatus));
-    },
-    handleLoading(loadingStatus) {
-      this.loadingStatus = loadingStatus;
-      console.log(this.loadingStatus);
     },
   },
   mounted () {
