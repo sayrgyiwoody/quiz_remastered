@@ -1,9 +1,30 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container-fluid" :class="darkModeStatus ?'bg-image-dark':'bg-image-light'" style="min-height: 100vh;padding-bottom: 80px;">
+    <div class="row">
+      <nav class="navbar fixed-top" :class="darkModeStatus ? 'card-body-dark border-bottom':'bg-white shdw border-bottom border-2 border-primary'">
+        <div class="container">
+          <a class="navbar-brand ms-2" href="#">
+            <img src="../public/images/logo.png" alt="logo" width="50">
+          </a>
+          <span class="me-auto fw-bold" style="color:#3e79d5;">QUIZ PLUS</span>
+            <button @click="toggleDarkMode" class="btn rounded-circle border border-2 fs-5" :class="darkModeStatus ? 'btn-outline-light' :'text-dark '"><i :class="darkModeStatus ? 'bi bi-moon-stars-fill ':'bi bi-sun-fill'"></i></button>
+        </div>
+      </nav>
+    </div>
+    
+   
+      
+    <router-view @loadingStatus="handleLoading" :darkModeStatus="darkModeStatus"></router-view>
+  </div>
+  <div v-if="loadingStatus" class="loader-container" :class="darkModeStatus?'loader-container-dark':''">
+    <div class="w-100 d-flex justify-content-center align-items-center " style="height:100vh">
+      <div class="loader" >
+        <span class="loader-text">loading</span>
+          <span class="load"></span>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <style lang="scss">
@@ -11,8 +32,7 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  position: relative;
 }
 
 nav {
@@ -27,4 +47,46 @@ nav {
     }
   }
 }
+
+
+
 </style>
+
+<script>
+import HomeView from '@/views/HomeView' 
+
+export default {
+  components: {
+    
+  },
+  data() {
+    return {
+      darkModeStatus : false,
+      loadingStatus : false,
+    }
+  },
+  methods: {
+    checkDarkMode(){
+      const localDarkMode = localStorage.getItem('darkMode');
+      if(localDarkMode != null){
+        if(JSON.parse(localDarkMode) == true){
+        this.darkModeStatus = true;
+      }
+      }
+      
+    },
+    // toggle dark mode
+    toggleDarkMode() {
+            this.darkModeStatus = !(this.darkModeStatus);
+            localStorage.setItem('darkMode', JSON.stringify(this.darkModeStatus));
+    },
+    handleLoading(loadingStatus) {
+      this.loadingStatus = loadingStatus;
+      console.log(this.loadingStatus);
+    },
+  },
+  mounted () {
+    this.checkDarkMode();
+  },
+}
+</script>
