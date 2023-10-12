@@ -27,6 +27,7 @@ import {mapActions} from 'vuex'
 import axios from 'axios'
 
 export default {
+  emits: ['page'],
     props: {
         currentPage : Number,
         darkModeStatus: Boolean,

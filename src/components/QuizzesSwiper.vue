@@ -43,7 +43,7 @@
     export default {
         props: {
             darkModeStatus: Boolean,
-            quizzes : Array,
+            quizzes : Object,
         },
       components: {
         Swiper,
