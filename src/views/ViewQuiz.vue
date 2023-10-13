@@ -1,15 +1,15 @@
 <template>
-    <div class="row">
+    <div class="row" :class="{'dark-mode':darkModeStatus}">
         <div class="col-12">
             <div class="quiz-detail">
-                <h2 class="fw-bold">Quiz title</h2>
+                <h2 class="fw-bold">{{quiz.title}}</h2>
                 <div class="fw-semibold">
                     <img width="50" src="https://ui-avatars.com/api/?name=woody&background=0D8ABC&color=fff" alt="" class="rounded-circle">
-                    <span class="ms-2">Woody</span>
-                |   <span>30 quizzes</span>
+                    <span class="ms-2">{{quiz.user_name}}</span>
+                |   <span><span class="fw-bold">{{question_count}}</span> quizzes</span>
                 </div>
                 <div class="desc-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore nihil expedita beatae corrupti reiciendis non sequi, dolore nostrum laborum officiis earum facilis perspiciatis ex quod eum dolores quo est magni debitis repellendus? A reprehenderit nulla velit quisquam ex! Cupiditate, unde.
+                    {{quiz.desc}}
                 </div>
                 <div class="mt-4">
                     <button @click="directHome" class="btn-back me-3 rounded fw-semibold">
@@ -28,13 +28,42 @@
 </template>
 
 <script>
+import { mapGetters , mapActions } from 'vuex'
+import axios from 'axios'
+
+
 export default {
+    computed: {
+        ...mapGetters(["darkModeStatus"]),
+    },
+    data() {
+        return {
+            quiz: {},
+            question_count : 0,
+        }
+    },
     methods: {
+        ...mapActions(["setLoadingStatus"]),
         directHome() {
             this.$router.push({
                 name : "home"
             })
+        },
+        getDetail(){
+            this.setLoadingStatus(true);
+            let id = this.$route.params.id;
+            axios.get(`http://127.0.0.1:8000/api/quiz/${id}`)
+            .then((response) => {
+                this.quiz = response.data.quiz;
+                this.question_count = response.data.question_count;
+                this.setLoadingStatus(false);
+            }).catch(error => console.log(error));
+            
+            
         }
+    },
+    mounted () {
+        this.getDetail();
     },
 }
 </script>
@@ -45,21 +74,31 @@ export default {
         color: #222222;
         background-color: #ffffff;
         border-radius: 5px;
+        transition: .5s;
     }
 
+ 
+
     .dark-mode .quiz-detail {
-        background-color: #27272a;
+        background-color: #1f2937;
+        color : #f8fafc;
     }
+
+    
 
     .desc-body {
         padding: 20px;
-        background-color: #f8fafc;
+        background-color: #f1f5f9;
         margin-top: 20px;
         border-radius: 10px;
     }
 
+    .dark-mode .desc-body {
+        background-color: #333e4f;
+    }
+
     button {
-        padding: 15px 25px;
+        padding: 10px 15px;
         border: none;
     }
 
@@ -70,6 +109,15 @@ export default {
     button svg {
         color : #2563eb;
         transition: .5s;
+    }
+
+    .dark-mode button {
+        background-color: #2563eb;
+        color: #fff;
+    }
+
+    .dark-mode button svg {
+        color :#fff;
     }
 
 
