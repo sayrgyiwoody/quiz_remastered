@@ -16,7 +16,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2m-3.29 13.59L14.29 18l-6-6l6-6l1.42 1.41L11.12 12l4.59 4.59Z"/></svg>
                         Back
                     </button>
-                    <button class="btn-play rounded fw-semibold">
+                    <button @click="directPlayPage()" class="btn-play rounded fw-semibold">
                         Play
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.11 0-2 .89-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2m-9 13V8l5 4"/></svg>
                     </button>
@@ -58,8 +58,15 @@ export default {
                 this.question_count = response.data.question_count;
                 this.setLoadingStatus(false);
             }).catch(error => console.log(error));
-            
-            
+        },
+        directPlayPage(){
+            let id = this.$route.params.id;
+            this.$router.push({
+                name : 'playQuiz',
+                params : {
+                    id : id,
+                }
+            })
         }
     },
     mounted () {
@@ -68,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .quiz-detail {
         padding: 20px;
         color: #222222;
@@ -90,7 +97,7 @@ export default {
         padding: 20px;
         background-color: #f1f5f9;
         margin-top: 20px;
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
     .dark-mode .desc-body {

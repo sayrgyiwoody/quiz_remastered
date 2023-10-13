@@ -14,7 +14,7 @@
         <swiper-slide class="swiper-quiz " v-for="(quiz,index) in quizzes" :key="index">
             <div class="swiper-slide d-flex flex-column">
                 <div class=" border-bottom border-2 pb-2 mb-1 w-75">
-                    <i class="fa-solid fa-user-astronaut"></i>
+                    <i class="fa-solid fa-user-astronaut me-2"></i>
                     <span class="fw-semibold">{{quiz.user_name}}</span>
             |       <span class="fw-semibold">{{formatDate(quiz.created_at)}}</span>
                 </div>
