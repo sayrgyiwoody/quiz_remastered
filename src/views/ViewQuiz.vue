@@ -4,7 +4,7 @@
             <div class="quiz-detail">
                 <h2 class="fw-bold">{{quiz.title}}</h2>
                 <div class="fw-semibold">
-                    <img width="50" src="https://ui-avatars.com/api/?name=woody&background=0D8ABC&color=fff" alt="" class="rounded-circle">
+                    <img width="50" :src="'https://ui-avatars.com/api/?name=' + quiz.user_name + '&background=0D8ABC&color=fff'" alt="" class="rounded-circle">
                     <span class="ms-2">{{quiz.user_name}}</span>
                 |   <span><span class="fw-bold">{{question_count}}</span> quizzes</span>
                 </div>
