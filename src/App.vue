@@ -18,7 +18,7 @@
     
     <div class="row justify-content-center" style="margin-top:100px;">
       <div class="col-md-6">
-        <router-view  :darkModeStatus="darkModeStatus"></router-view>
+        <router-view ></router-view>
       </div>
     </div>
   </div>

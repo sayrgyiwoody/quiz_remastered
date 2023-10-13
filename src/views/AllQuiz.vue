@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
-                <quiz-list @page="changePage" :darkModeStatus="darkModeStatus" :quizzes="quizzes"></quiz-list>
+                <quiz-list @page="changePage" :quizzes="quizzes"></quiz-list>
             </div>
         </div>
     </div>
@@ -11,11 +11,11 @@
 <script>
 import QuizList from '@/components/QuizList'
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 
 export default {
     props: {
-    darkModeStatus: Boolean,
+
     },
     components: {
         QuizList,
@@ -25,6 +25,9 @@ export default {
             quizzes: {},
             currentPage : 1,
         }
+    },
+    computed: {
+        ...mapGetters(["darkModeStatus"])
     },
     methods: {
         ...mapActions(['setLoadingStatus']),
