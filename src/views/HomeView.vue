@@ -1,7 +1,5 @@
 <template>
-  <div :class="{'dark-mode':darkModeStatus}" class="row justify-content-center">
-    <div class="col-md-6" style="margin-top: 100px;">
-      <div class="row pe-3">
+      <div class="row pe-3" :class="{'dark-mode':darkModeStatus}">
           <div class="input-gp col-8 mb-3" >
               <input @input="searchQuiz" v-model="search_input"  required="" name="" id="search_input" type="text" class="input">
               <label style="left:30px" for="" class="label">Search Quizzes Here</label>
@@ -16,11 +14,10 @@
               </div>
           </div>
       </div>
-    </div>
-  </div>
+
     <div v-if="search_input == ''">
       <div v-if="showHomeAlert" class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-12">
           <div class=" p-4 home-alert " :class="{'bg-white text-dark' : !darkModeStatus}" role="alert">
             <div class="d-flex align-items-center h4 ">
                 <span class="me-3"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M13 3c3.9 0 7 3.1 7 7c0 2.8-1.6 5.2-4 6.3V21H9v-3H8c-1.1 0-2-.9-2-2v-3H4.5c-.4 0-.7-.5-.4-.8L6 9.7C6.2 5.9 9.2 3 13 3m0-2C8.4 1 4.6 4.4 4.1 8.9L2.5 11c-.6.8-.6 1.8-.2 2.6c.4.7 1 1.2 1.7 1.3V16c0 1.9 1.3 3.4 3 3.9V23h11v-5.5c2.5-1.7 4-4.4 4-7.5c0-5-4-9-9-9m1 13h-2v-1h2v1m1.6-4.5c-.3.4-.6.8-1.1 1.1V12h-3v-1.4c-1.4-.8-1.9-2.7-1.1-4.1s2.7-1.9 4.1-1.1s1.9 2.7 1.1 4.1Z"/></svg></span>
@@ -43,7 +40,7 @@
         </div>
     
         <div class="row justify-content-center mt-4">
-          <div class="col-md-6">
+          <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-bell txt-primary me-2"></i>Latest Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
@@ -54,7 +51,7 @@
         </div>
     
         <div class="row justify-content-center" style="margin-top:4.5rem"> 
-          <div class="col-md-6">
+          <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-arrow-trend-up txt-primary me-2"></i>Most Played Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
@@ -66,12 +63,12 @@
     </div>
     <div v-else>
       <div class="row justify-content-center mt-3">
-        <div class="col-md-6">
+        <div class="col-12">
           <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">{{searched_quiz.total}}</span></p>
               </div>
-              <quiz-list @page="changePage"  :currentPage="currentPage" :darkModeStatus="darkModeStatus" :quizzes="searched_quiz"></quiz-list>
+              <quiz-list @page="changePage" :darkModeStatus="darkModeStatus" :quizzes="searched_quiz"></quiz-list>
         </div>
         </div>
       </div>
@@ -160,7 +157,7 @@ export default defineComponent({
         name : 'allQuiz',
       })
     },
-
+    //get page number from child component
     changePage(page = 1){
       this.currentPage = page;
       this.searchQuiz();

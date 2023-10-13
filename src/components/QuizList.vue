@@ -29,9 +29,13 @@ import axios from 'axios'
 export default {
   emits: ['page'],
     props: {
-        currentPage : Number,
         darkModeStatus: Boolean,
         quizzes : Object,
+    },
+    computed: {
+      currentPage() {
+        return this.quizzes.current_page 
+      }
     },
     data() {
         return {
@@ -42,7 +46,6 @@ export default {
         ...mapActions(['setLoadingStatus']),
         changePage(page) {
             this.$emit('page',page);
-            // console.log(page);
         },
         // limit description 
         limitString(str, limit) {

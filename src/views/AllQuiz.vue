@@ -1,5 +1,51 @@
 <template>
-    <div style="margin-top: 100px;">
-        hello
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
+                <quiz-list @page="changePage" :darkModeStatus="darkModeStatus" :quizzes="quizzes"></quiz-list>
+            </div>
+        </div>
     </div>
 </template>
+
+<script>
+import QuizList from '@/components/QuizList'
+import axios from 'axios'
+import { mapActions } from 'vuex'
+
+export default {
+    props: {
+    darkModeStatus: Boolean,
+    },
+    components: {
+        QuizList,
+    },
+    data() {
+        return {
+            quizzes: {},
+            currentPage : 1,
+        }
+    },
+    methods: {
+        ...mapActions(['setLoadingStatus']),
+        getQuizzes() {
+            this.setLoadingStatus(true);
+            axios.get(`http://127.0.0.1:8000/api/quiz/all?page=${this.currentPage}`,{
+                'searchKey' : this.search_input
+            }).then((response) => {
+                this.quizzes = response.data.quizzes;
+                this.setLoadingStatus(false);
+            }).catch(error => console.log(error));
+        },
+        //get page number from child component
+        changePage(page = 1){
+        this.currentPage = page;
+        this.searchQuiz();
+        }
+    },
+    mounted () {
+        this.getQuizzes();
+    },
+
+}
+</script>
