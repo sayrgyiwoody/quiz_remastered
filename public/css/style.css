@@ -232,8 +232,9 @@
 
 .card-body-dark {
     color: #fff;
-    background-color: rgba(60, 64, 67, 0.3);
-    backdrop-filter: blur(10px);
+    /* background-color: rgba(60, 64, 67, 0.3);
+    backdrop-filter: blur(10px); */
+    background-color : #1e293b;
 }
 
 .btn-answer-check-dark {

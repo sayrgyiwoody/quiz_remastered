@@ -6,7 +6,7 @@
             </div>
             <h3 class="my-1">{{quiz.title}}</h3>
             <p class=" mb-1" :class="{'text-muted':!darkModeStatus,'text-light opacity-50':darkModeStatus}">{{limitString(quiz.desc,50)}}</p>
-            <button class="btn-play my-2"><i class="fa-solid fa-play me-2"></i>Play now</button>
+            <button @click="viewQuiz(quiz.id)" class="btn-play my-2"><i class="fa-solid fa-play me-2"></i>Play now</button>
     </div>
     
     <div class="d-flex justify-content-end me-md-2" :class="{'text-white':darkModeStatus}">
@@ -23,16 +23,17 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import axios from 'axios'
+
 
 export default {
   emits: ['page'],
     props: {
-        darkModeStatus: Boolean,
         quizzes : Object,
     },
     computed: {
+      ...mapGetters(["darkModeStatus"]),
       currentPage() {
         return this.quizzes.current_page 
       }
@@ -60,6 +61,16 @@ export default {
             const options = { month: 'short', day: 'numeric' };
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', options);
+        },
+        // view quiz 
+        viewQuiz(id){
+          this.$router.push({
+            name :'viewQuiz',
+            params : {
+              id : id,
+            }
+            
+          })
         }
     },
     mounted () {

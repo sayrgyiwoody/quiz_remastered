@@ -2,7 +2,7 @@
       <div class="row pe-3" :class="{'dark-mode':darkModeStatus}">
           <div class="input-gp col-8 mb-3" >
               <input @input="searchQuiz" v-model="search_input"  required="" name="" id="search_input" type="text" class="input">
-              <label style="left:30px" for="" class="label">Search Quizzes Here</label>
+              <label style="left:30px" for="" class="label">Search Quizzes <span class="d-none d-md-inline">Here</span></label>
               <svg v-if="search_input == ''" class="maginfy-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11.5" cy="11.5" r="9.5"/><path stroke-linecap="round" d="M18.5 18.5L22 22"/></g></svg>
               <svg @click="clearSearchInput" v-else class="maginfy-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10ZM8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
 
@@ -45,7 +45,7 @@
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-bell txt-primary me-2"></i>Latest Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
             </div>
-            <quizzes-swiper :quizzes="latest_quizzes" :darkModeStatus="darkModeStatus"></quizzes-swiper>
+            <quizzes-swiper :quizzes="latest_quizzes"></quizzes-swiper>
           </div>
           
         </div>
@@ -56,7 +56,7 @@
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-arrow-trend-up txt-primary me-2"></i>Most Played Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
             </div>
-            <quizzes-swiper :quizzes="latest_quizzes" :darkModeStatus="darkModeStatus"></quizzes-swiper>
+            <quizzes-swiper :quizzes="latest_quizzes"></quizzes-swiper>
           </div>
           
         </div>
@@ -68,7 +68,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">{{searched_quiz.total}}</span></p>
               </div>
-              <quiz-list @page="changePage" :darkModeStatus="darkModeStatus" :quizzes="searched_quiz"></quiz-list>
+              <quiz-list @page="changePage" :quizzes="searched_quiz"></quiz-list>
         </div>
         </div>
       </div>
@@ -82,17 +82,20 @@ import QuizzesSwiper from '../components/QuizzesSwiper.vue'
 import QuizList from '../components/QuizList.vue'
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapActions } from 'vuex';
+import { mapActions , mapGetters } from 'vuex';
 
 
 export default defineComponent({
   props: {
-    darkModeStatus: Boolean,
+    
   },
   name: 'HomeView',
   components: {
     QuizzesSwiper,
     QuizList,
+  },
+  computed: {
+    ...mapGetters(["darkModeStatus"]),
   },
   data() {
     return {

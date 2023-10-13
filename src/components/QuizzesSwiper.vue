@@ -20,7 +20,7 @@
                 </div>
                 <h3 class="my-1">{{quiz.title}}</h3>
                 <p class=" mb-1" :class="{'text-muted':!darkModeStatus,'text-light opacity-50':darkModeStatus}">{{limitString(quiz.desc,130)}}</p>
-                <a href="" class="btn btn-play my-2"><i class="fa-solid fa-play me-2"></i>Play now</a>
+                <a @click="viewQuiz(quiz.id)" class="btn btn-play my-2"><i class="fa-solid fa-play me-2"></i>Play now</a>
             </div>
         </swiper-slide>
       
@@ -39,10 +39,10 @@
   
     // import required modules
     import { Pagination } from 'swiper/modules';
-  
+    import { mapGetters } from 'vuex'
+
     export default {
         props: {
-            darkModeStatus: Boolean,
             quizzes : Object,
         },
       components: {
@@ -53,6 +53,9 @@
         return {
           modules: [Pagination],
         };
+      },
+      computed: {
+        ...mapGetters(["darkModeStatus"]),
       },
       data() {
         return {
@@ -73,6 +76,16 @@
             const options = { month: 'short', day: 'numeric' };
             const date = new Date(dateString);
             return date.toLocaleDateString('en-US', options);
+        },
+        // view quiz 
+        viewQuiz(id){
+          this.$router.push({
+            name :'viewQuiz',
+            params : {
+              id : id,
+            }
+            
+          })
         }
       },
     };

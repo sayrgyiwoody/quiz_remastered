@@ -7,14 +7,16 @@
             <img src="../public/images/logo.png" alt="logo" width="50">
             <span class="me-auto fw-bold" style="color:#3e79d5;">QUIZ PLUS</span>
           </a>
+          
             <button @click="toggleDarkMode" class="btn rounded-circle border border-2 fs-5" :class="darkModeStatus ? 'btn-outline-light' :'text-dark '"><i :class="darkModeStatus ? 'bi bi-moon-stars-fill ':'bi bi-sun-fill'"></i></button>
         </div>
       </nav>
+      
     </div>
     
    
     
-    <div class="row justify-content-center" style="margin-top: 100px;">
+    <div class="row justify-content-center" style="margin-top:100px;">
       <div class="col-md-6">
         <router-view  :darkModeStatus="darkModeStatus"></router-view>
       </div>
@@ -59,33 +61,34 @@ nav {
 <script>
 import HomeView from '@/views/HomeView'
 import AllQuiz from '@/views/AllQuiz' 
+import { mapGetters , mapActions } from 'vuex'
 
 export default {
   computed: {
-    
+    ...mapGetters(["darkModeStatus"]),
   },
   components: {
     
   },
   data() {
     return {
-      darkModeStatus : false,
       loadingStatus : false,
     }
   },
   methods: {
+    ...mapActions(["setDarkMode"]),
     checkDarkMode(){
       const localDarkMode = localStorage.getItem('darkMode');
       if(localDarkMode != null){
         if(JSON.parse(localDarkMode) == true){
-        this.darkModeStatus = true;
+        this.setDarkMode(true);
       }
       }
       
     },
     // toggle dark mode
     toggleDarkMode() {
-            this.darkModeStatus = !(this.darkModeStatus);
+            this.setDarkMode(!(this.darkModeStatus));
             localStorage.setItem('darkMode', JSON.stringify(this.darkModeStatus));
     },
     directHome(){
