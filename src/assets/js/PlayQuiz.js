@@ -47,7 +47,7 @@ export default {
         },
         // change next question 
         changeQuiz(quizNumber) {
-
+          this.loading = false;
           this.try = 1;
           this.answerStatus = null;
           this.currentQuiz = quizNumber;

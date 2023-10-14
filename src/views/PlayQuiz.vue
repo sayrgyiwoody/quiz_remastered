@@ -17,7 +17,7 @@
                       <div class="" v-for="question in paginatedQuizzes" :key="question.id">
                           <div class="d-flex align-items-center justify-content-between">
                             <button class="btn rounded-bottom-0 me-1 fw-bold text-light bg-primary" >
-                              Quiz 1
+                              Quiz {{currentQuiz}}
                             </button>
                             <button @click="showAnswer(question.id)" class="btn " :class="{'text-light':darkModeStatus}">need answer<i class="fa-solid fa-question text-danger ms-2 fs-5"></i></button>
                           </div>
