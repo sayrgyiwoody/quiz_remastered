@@ -33,7 +33,12 @@ export default {
         changePage(page = 1){
         this.currentPage = page;
         this.searchQuiz();
-        }
+        },
+        directHome() {
+            this.$router.push({
+                name : "home"
+            })
+        },
     },
     mounted () {
         this.getQuizzes();
