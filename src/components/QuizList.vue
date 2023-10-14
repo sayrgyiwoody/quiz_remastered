@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(quiz,index) in quizzes.data" :key="index" class="quiz col-6">
+    <div v-for="(quiz,index) in quizzes.data" :key="index" class="quiz col-md-6">
             <div class=" border-bottom mx-auto border-2 pb-2 mb-1 w-75">
                 <i class="fa-solid fa-user-astronaut me-2"></i>
                 <span class="fw-semibold">{{quiz.user_name}}</span>
@@ -91,6 +91,12 @@ export default {
     border-radius: 5px;
     text-align: center;
     margin-bottom: 5px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .quiz {
+      width: 100%;
+    }
   }
 
   .dark-mode .quiz {

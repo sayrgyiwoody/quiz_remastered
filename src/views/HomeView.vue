@@ -64,7 +64,7 @@
     <div v-else>
       <div class="row justify-content-center mt-3">
         <div class="col-12">
-          <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
+          <div class="row px-2 px-md-0 g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">{{searched_quiz.total}}</span></p>
               </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-12">
-            <div class="row g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
+            <div class="row px-2 px-md-0 g-2 justify-content-between" :class="{'dark-mode':darkModeStatus}">
                 <div class="">
                     <a @click="directHome()" class="text-decoration-none fs-5 fw-semibold"><i class="fa-solid fa-arrow-left me-2" style="cursor: pointer;"></i>Back</a>
                 </div>

@@ -32,7 +32,7 @@ export default {
         //get page number from child component
         changePage(page = 1){
         this.currentPage = page;
-        this.searchQuiz();
+        this.getQuizzes();
         },
         directHome() {
             this.$router.push({
