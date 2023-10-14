@@ -12,14 +12,14 @@
                       </div>
                       <p class="mb-3 text-end" :class="{'text-light':darkModeStatus}"><b class="text-success">{{currentQuiz}}</b><b> / {{questionList.length}}</b></p>
                       <div v-if="loading" class="spinner-container"><div class="spinner"></div><span class="fw-semibold ms-2" :class="{'text-light':darkModeStatus}">Loading..</span></div>
-                      <div  v-html="answerMessage" v-if="answerStatus !== null" class="alert text-light fw-semibold" :class="{'bg-right':answerStatus,'bg-wrong':answerStatus === false,'d-none':answerMessage===null}" role="alert">
+                      <div  v-html="answerMessage" v-if="answerStatus !== null" class="alert text-light fw-semibold" :class="{'text-dark':!darkModeStatus}" role="alert">
                       </div>
                       <div class="" v-for="question in paginatedQuizzes" :key="question.id">
                           <div class="d-flex align-items-center justify-content-between">
                             <button class="btn rounded-bottom-0 me-1 fw-bold text-light bg-primary" >
                               Quiz 1
                             </button>
-                            <button  class="btn " :class="{'text-light':darkModeStatus}">need answer<i class="fa-solid fa-question text-danger ms-2 fs-5"></i></button>
+                            <button @click="showAnswer(question.id)" class="btn " :class="{'text-light':darkModeStatus}">need answer<i class="fa-solid fa-question text-danger ms-2 fs-5"></i></button>
                           </div>
                           <div class="quiz-box mb-3">
             
@@ -39,15 +39,14 @@
                                 {{choice}}
                               </label>
                             </div>
-                            <input @keyup.enter="checkAnswer(question.id)"  v-if="question.questionText" placeholder="Your answer here" v-model="answer" name="userAnswer" type="text">
+                            <input class="answerInput" @keyup.enter="checkAnswer(question.id)"  v-if="question.questionText" placeholder="Your answer here" v-model="answer" name="userAnswer" type="text">
                           </div>
                         <button :disabled="answerStatus" @click="checkAnswer(question.id)" class="btn btn-primary mb-4 w-100"><i class="bi bi-journal-check me-2"></i>Check Answer</button>
                         </div>
             
             
                         <div class="d-flex justify-content-between">
-                          <!-- <button @click="changeQuiz(currentQuiz - 1)" :disabled="currentQuiz === 1" class="btn btn-outline-primary"><i class="bi bi-caret-left-fill me-2"></i>Prev</button> -->
-                          <button @click="changeQuiz(currentQuiz + 1)" :hidden="currentQuiz === (questionList.length + 1) || !answerStatus" class="btn ms-auto">@{{nextQuiz}}<i class="bi bi-caret-right-fill ms-2"></i></button>
+                          <button @click="changeQuiz(currentQuiz + 1)" :hidden="currentQuiz === (questionList.length + 1) || !answerStatus" class="btn ms-auto" :class="{'text-light':darkModeStatus}">{{nextQuiz}}<i class="bi bi-caret-right-fill ms-2"></i></button>
                         </div>
                       </div>
             </div>
@@ -55,57 +54,7 @@
 
 </template>
 
-<script>
-import axios from 'axios';
-import { mapActions , mapGetters } from 'vuex'
-export default {
-    data() {
-        return {
-            currentQuiz : 1,
-            selectedChoice : '',
-            answer : '',
-            questionText : '',
-            answerStatus : null,
-            multipleText : '',
-            questionList : [],
-            quiz : {},
-            loading :false,
-        }
-    },
-    computed: {
-        ...mapGetters(["darkModeStatus"]),
-        paginatedQuizzes() {
-            return this.questionList.slice(this.currentQuiz-1,this.currentQuiz);
-        },
-    },
-    methods: {
-        ...mapActions(["setLoadingStatus"]),
-        goBack(){
-            history.back();
-        },
-        directHome() {
-            this.$router.push({
-                name : "home"
-            })
-        },
-        getQuestionList(){
-            this.setLoadingStatus(true);
-            let id = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/questionList/${id}`)
-            .then((response) => {
-                this.questionList = response.data.question_list;
-                this.quiz = response.data.quiz;
-                this.setLoadingStatus(false);
-                console.log(this.question_list);
-            }).catch(error => console.log(error));
-        }
-    },
-    mounted () {
-        this.getQuestionList();
-    },
-
-}
-</script>
+<script src="../assets/js/PlayQuiz.js"></script>
 
 
 <style  scoped>
@@ -133,7 +82,7 @@ h5 {
     color: #fff;
 }
 
-input {
+.answerInput {
     width: 100%;
     padding: .7em 1em;
     border: none;
@@ -141,16 +90,16 @@ input {
     border-radius: 5px;
 }
 
-.dark-mode input {
+.dark-mode .answerInput {
     background-color: #333e4f;
     color: #fff;
 }
 
-.dark-mode input::placeholder {
+.dark-mode .answerInput::placeholder {
     color : #f1f5f9;
 }
 
-input:focus {
+.answerInput:focus {
     outline: none;
     border: 1.5px solid #1d4ed8;
 }
@@ -212,4 +161,4 @@ button {
     }
   }
 
-</style>
+</style>../assets/js/PlayQuiz.js../assets/js/PlayQuiz.js
