@@ -47,6 +47,10 @@ export default {
         ...mapActions(['setLoadingStatus']),
         changePage(page) {
             this.$emit('page',page);
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth' // This provides a smooth scroll animation (optional)
+            });
         },
         // limit description 
         limitString(str, limit) {
