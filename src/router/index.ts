@@ -24,6 +24,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/playQuiz/:id',
     name : 'playQuiz',
     component: PlayQuiz
+  },
+  {
+    path : '/:patchMatch(.*)*',
+    name  :'notFound',
+    component : ()=> import('../views/NotFound.vue')
   }
 ]
 

@@ -27,7 +27,7 @@
       
             <svg  class="hideHomeSvg" @click="hideHomeAlert" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" d="m14.5 9.5l-5 5m0-5l5 5"/></g></svg>
           
-            <button class="btn-explore mt-3 d-block">Create quizzes
+            <button @click="showRules" class="btn-explore mt-3 d-block">Show Rules
               <svg class="ms-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <path
                   d="M12.2533 8.46667C9.53332 11.52 7.66666 15.9067 7.49332 16.32L2.66666 14.2533L8.06666 8.85333C8.69332 8.22667 9.59999 7.94667 10.48 8.12L12.2533 8.46667ZM14.8933 22.6667C14.8933 22.6667 19.88 20.6 22.7467 17.7333C29.9467 10.5333 28.7467 4.90667 28.36 3.64C27.0933 3.24 21.4667 2.05333 14.2667 9.25333C11.4 12.12 9.33332 17.1067 9.33332 17.1067L14.8933 22.6667ZM23.5333 19.7467C20.48 22.4667 16.0933 24.3333 15.68 24.5067L17.7467 29.3333L23.1467 23.9333C23.7733 23.3067 24.0533 22.4 23.88 21.52L23.5333 19.7467ZM12 24C12 25.1067 11.5467 26.1067 10.8267 26.8267C9.25332 28.4 2.66666 29.3333 2.66666 29.3333C2.66666 29.3333 3.59999 22.7467 5.17332 21.1733C5.73172 20.612 6.44432 20.2293 7.22065 20.0738C7.99699 19.9182 8.80202 19.9969 9.53355 20.2998C10.2651 20.6027 10.8901 21.1162 11.3292 21.775C11.7684 22.4338 12.0019 23.2082 12 24ZM17.3333 12C17.3333 10.5333 18.5333 9.33333 20 9.33333C21.4667 9.33333 22.6667 10.5333 22.6667 12C22.6667 13.4667 21.4667 14.6667 20 14.6667C18.5333 14.6667 17.3333 13.4667 17.3333 12Z"
@@ -68,7 +68,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <p class="mb-2 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-magnifying-glass txt-primary me-2"></i>Searched Quizzes : <span class="text-success fw-semibold">{{searched_quiz.total}}</span></p>
               </div>
-              <quiz-list @page="changePage" :quizzes="searched_quiz"></quiz-list>
+              <div v-if="searched_quiz.total == 0" class="fw-semibold" :class="{'text-white':darkModeStatus}">No Quiz Found for <span class="text-primary fw-bold">{{search_input}}</span> </div>
+              <quiz-list v-else @page="changePage" :quizzes="searched_quiz"></quiz-list>
         </div>
         </div>
       </div>
@@ -132,7 +133,7 @@ export default defineComponent({
       title: '<strong>Quiz Rules</strong>',
       icon: 'info',
       html:
-        "If you get it right on your first try, you get a mark. If you have a problem with an answer or don't know an answer, click Need Answer?. However, requesting answers does not earn marks for this quiz.",
+        "If you get it right on your first try, you get a mark. If you have a problem with the answer, click <span class='text-primary'>Need Answer?</span> However, requesting answers does not earn marks for that quiz.",
       showCloseButton: true,
       showCancelButton: true,
       focusConfirm: false,
