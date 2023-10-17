@@ -38,7 +38,9 @@ export default {
         getQuestionList(){
             this.setLoadingStatus(true);
             let id = this.$route.params.id;
-            axios.get(`http://127.0.0.1:8000/api/questionList/${id}`)
+            axios.post(`http://127.0.0.1:8000/api/questionList`,{
+                'id' : id,
+            })
             .then((response) => {
                 this.questionList = response.data.question_list;
                 this.quiz = response.data.quiz;
@@ -140,6 +142,7 @@ export default {
     },
     mounted () {
         this.getQuestionList();
+        
     },
 
 }

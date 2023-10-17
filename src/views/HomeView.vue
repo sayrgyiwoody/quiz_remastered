@@ -45,7 +45,8 @@
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-bell txt-primary me-2"></i>Latest Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
             </div>
-            <quizzes-swiper :quizzes="latest_quizzes"></quizzes-swiper>
+            <div v-if="latest_quizzes.length == 0" class="fw-semibold" :class="{'text-white':darkModeStatus}">No Quiz to show </div>
+            <quizzes-swiper v-else :quizzes="latest_quizzes"></quizzes-swiper>
           </div>
           
         </div>
@@ -56,7 +57,8 @@
               <p class="mb-3 fs-5" :class="{'text-light':darkModeStatus,}"><i class="fa-solid fa-arrow-trend-up txt-primary me-2"></i>Most Played Quizzes</p>
               <!-- <a href="" class="text-decoration-none" style="cursor: pointer;" :class="{'text-light':darkModeStatus,}">See all<i class="fa-solid fa-angles-right txt-primary ms-2"></i></a> -->
             </div>
-            <quizzes-swiper :quizzes="latest_quizzes"></quizzes-swiper>
+            <div v-if="most_played_quizzes.length == 0" class="fw-semibold" :class="{'text-white':darkModeStatus}">No Quiz to show </div>
+            <quizzes-swiper v-else :quizzes="most_played_quizzes"></quizzes-swiper>
           </div>
           
         </div>
@@ -103,7 +105,7 @@ export default defineComponent({
       search_input: '',
       showHomeAlert : true,
       latest_quizzes : {},
-      popular_quizzes : {},
+      most_played_quizzes : {},
       searched_quiz : {},
       currentPage : 1,
     }
@@ -124,6 +126,18 @@ export default defineComponent({
         if(response.data.status == true){
           this.setLoadingStatus(false);
           this.latest_quizzes = response.data.quizzes.data;
+        }
+      })
+      .catch(error => console.log(error));
+    },
+    // get most played quizzes from api 
+    getMostPlayedQuizzes(){
+      this.setLoadingStatus(true);
+      axios.get('http://127.0.0.1:8000/api/quiz/mostPlayed')
+      .then((response) => {
+        if(response.data.status == true){
+          this.setLoadingStatus(false);
+          this.most_played_quizzes = response.data.quizzes.data;
         }
       })
       .catch(error => console.log(error));
@@ -169,6 +183,8 @@ export default defineComponent({
   },
   mounted () {
     this.getLatestQuizzes();
+    this.getMostPlayedQuizzes();
   },
 });
 </script>
+

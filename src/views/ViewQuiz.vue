@@ -7,6 +7,7 @@
                     <img width="50" :src="'https://ui-avatars.com/api/?name=' + quiz.user_name + '&background=0D8ABC&color=fff'" alt="" class="rounded-circle">
                     <span class="ms-2">{{quiz.user_name}}</span>
                 |   <span><span class="fw-bold">{{question_count}}</span> quizzes</span>
+                |   <span><span class="fw-bold">{{quiz.view_count}}</span> played</span>
                 </div>
                 <div class="desc-body">
                     {{quiz.desc}}
