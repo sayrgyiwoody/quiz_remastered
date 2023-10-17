@@ -5,7 +5,7 @@
     <swiper
       :slidesPerView="'auto'"
       :spaceBetween="30"
-      
+      :freeMode="true"
       :modules="modules"
       class="mySwiper" :class="{'dark-mode' :darkModeStatus}"
     >
@@ -38,7 +38,7 @@
   
   
     // import required modules
-    import { Pagination } from 'swiper/modules';
+    import {FreeMode, Pagination } from 'swiper/modules';
     import { mapGetters } from 'vuex'
 
     export default {
@@ -51,7 +51,7 @@
       },
       setup() {
         return {
-          modules: [Pagination],
+          modules: [FreeMode,Pagination],
         };
       },
       computed: {
