@@ -40,7 +40,7 @@
     <li>SweetAlert 2</li>
 </ul>
 
-| Home Page Light              | Dark Mobile               |
+| All Quizzes pagination              | Search for quiz               |
 | ---------------------- | ---------------------- |
 | ![cat](./public/images/snap/all.bmp) | ![dog](./public/images/snap/search.bmp) |
 
@@ -51,7 +51,7 @@
     <li>icones.js.org</li>
 </ul>
 
-| Home Page Light              | Dark Mobile               |
+| Play Quiz Light              | Play Quiz Dark               |
 | ---------------------- | ---------------------- |
 | ![cat](./public/images/snap/play.bmp) | ![dog](./public/images/snap/play_dark.bmp) |
 
@@ -71,3 +71,5 @@
 *notice : First you need to host the back-end server
 
 [Back-end Github Repo Link Here](https://github.com/sayrgyiwoody/quiz_back-end) !
+
+📫 If you have problem with app , Feel free to reach me out **wytun8904@gmail.com**
